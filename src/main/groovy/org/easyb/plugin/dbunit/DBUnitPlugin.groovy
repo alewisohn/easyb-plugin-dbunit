@@ -82,6 +82,8 @@ class DBUnitPlugin extends BasePlugin {
 	private void doDatabaseOperation(final IDatabaseConnection conn, final Closure dataSet, final DatabaseOperation operation) {
 		try {
 			operation.execute(conn, getDataSet(dataSet))
+		} catch(e) {
+			println e.message
 		} finally {
 			conn.close()
 		}
@@ -93,8 +95,13 @@ class DBUnitPlugin extends BasePlugin {
 	}
 
 	private IDataSet getDataSet(final Closure dataSet) throws IOException, DataSetException {
-		final String datastr = (String) dataSet.call()
-		return new FlatXmlDataSet(new ByteArrayInputStream(datastr.getBytes()))
+		def result = dataSet.call()
+		if (result instanceof IDataSet) {
+			return result
+		} else {
+			final String datastr = (String) result
+			return new FlatXmlDataSet(new ByteArrayInputStream(datastr.getBytes()))
+		} 
 	}
 
 	def String getName() {
