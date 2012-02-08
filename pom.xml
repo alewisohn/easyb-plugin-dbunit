@@ -1,0 +1,164 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.easyb</groupId>
+	<artifactId>easyb-plugin-dbunit</artifactId>
+	<packaging>jar</packaging>
+	<version>1.5</version>
+
+	<name>EasyB DBUnit Plugin</name>
+	<description>A DBUnit plugin for EasyB</description>
+	<url>http://www.easyb.org</url>
+
+	<developers>
+		<developer>
+			<id>ajglover</id>
+			<name>Andy Glover</name>
+		</developer>
+		<developer>
+			<id>kenneth.s.brooks</id>
+			<name>Ken Brooks</name>
+		</developer>
+		<developer>
+			<id>rfciii</id>
+			<name>Rod Coffin</name>
+			<email>rod@rodcoffin.com</email>
+			<url>http://www.rodcoffin.com</url>
+		</developer>
+		<developer>
+			<id>alewisohn</id>
+			<name>Andrew Lewisohn</name>
+			<email>alewisohn@gmail.com</email>
+		</developer>
+	</developers>
+
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+		</license>
+	</licenses>
+
+	<mailingLists>
+		<mailingList>
+			<name>easyb users</name>
+			<archive>http://groups.google.com/group/easyb-users</archive>
+			<subscribe>http://groups.google.com/group/easyb-users</subscribe>
+			<unsubscribe>http://groups.google.com/group/easyb-users</unsubscribe>
+			<post>http://groups.google.com/group/easyb-users</post>
+		</mailingList>
+		<mailingList>
+			<name>easyb dev</name>
+			<archive>http://groups.google.com/group/easyb-dev</archive>
+			<subscribe>http://groups.google.com/group/easyb-dev</subscribe>
+			<unsubscribe>http://groups.google.com/group/easyb-dev</unsubscribe>
+			<post>http://groups.google.com/group/easyb-dev</post>
+		</mailingList>
+		<mailingList>
+			<name>easyb commits</name>
+			<archive>http://groups.google.com/group/easyb-commits</archive>
+			<subscribe>http://groups.google.com/group/easyb-commits</subscribe>
+			<unsubscribe>http://groups.google.com/group/easyb-commits</unsubscribe>
+			<post>http://groups.google.com/group/easyb-commits</post>
+		</mailingList>
+	</mailingLists>
+
+	<issueManagement>
+		<system>Google Code</system>
+		<url>http://code.google.com/p/easyb/issues/</url>
+	</issueManagement>
+	<dependencies>
+		<dependency>
+			<groupId>org.dbunit</groupId>
+			<artifactId>dbunit</artifactId>
+			<version>2.4.8</version>
+		</dependency>
+		<dependency>
+			<groupId>org.easyb</groupId>
+			<artifactId>easyb-core</artifactId>
+			<version>1.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.javatuples</groupId>
+			<artifactId>javatuples</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.6.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>1.8.0.5</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.6.4</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.easyb</groupId>
+				<artifactId>maven-easyb-plugin</artifactId>
+				<version>1.4</version>
+				<configuration>
+					<storyType>html</storyType>
+					<storyReport>${project.build.directory}/easyb/stories.html</storyReport>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>test</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.gmaven</groupId>
+				<artifactId>gmaven-plugin</artifactId>
+				<version>1.4</version>
+				<configuration>
+					<providerSelection>1.7</providerSelection>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.codehaus.gmaven.runtime</groupId>
+						<artifactId>gmaven-runtime-1.7</artifactId>
+						<version>1.2</version>
+						<exclusions>
+							<exclusion>
+								<groupId>org.codehaus.groovy</groupId>
+								<artifactId>groovy-all</artifactId>
+							</exclusion>
+						</exclusions>
+					</dependency>
+					<dependency>
+						<groupId>org.codehaus.groovy</groupId>
+						<artifactId>groovy-all</artifactId>
+						<version>1.7.10</version>
+					</dependency>
+				</dependencies>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generateStubs</goal>
+							<goal>compile</goal>
+							<goal>generateTestStubs</goal>
+							<goal>testCompile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
